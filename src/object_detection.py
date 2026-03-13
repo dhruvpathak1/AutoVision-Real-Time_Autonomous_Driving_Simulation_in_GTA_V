@@ -2,10 +2,11 @@ import cv2
 import numpy as np
 import os
 
-# Base directory for the project
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Get the directory of the current script
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS_DIR = os.path.join(SCRIPT_DIR, '..', 'assets')
 
-net = cv2.dnn.readNet(os.path.join(BASE_DIR, 'models/yolov3.weights'), os.path.join(BASE_DIR, 'models/yolov3.cfg'))
+net = cv2.dnn.readNet(os.path.join(ASSETS_DIR, 'yolov3.weights'), os.path.join(ASSETS_DIR, 'yolov3.cfg'))
 
 # --> This is the function for loading Deep Learning network into
 #     system(memory).
@@ -16,7 +17,7 @@ net = cv2.dnn.readNet(os.path.join(BASE_DIR, 'models/yolov3.weights'), os.path.j
 # --> It returns an object.
 
 classes = []
-with open(os.path.join(BASE_DIR, 'models/coco.names'), 'r') as name_file:
+with open(os.path.join(ASSETS_DIR, 'coco.names'), 'r') as name_file:
     # 'with' keyword opens the file, manipulates the file and closes it
     # If any error comes throws it after closing the file
     # 'open' takes 2 parameters filename and mode.
@@ -25,7 +26,7 @@ with open(os.path.join(BASE_DIR, 'models/coco.names'), 'r') as name_file:
 
 
 # For webcam write 0 in () below like - (0)
-cap = cv2.VideoCapture(os.path.join(BASE_DIR, 'samples/Sample Clip 1.mp4'))
+cap = cv2.VideoCapture(os.path.join(ASSETS_DIR, 'clips', 'Sample Clip 1.mp4'))
 
 # img = cv2.imread('test_image.jpg')
 # Reads the image and stores in img

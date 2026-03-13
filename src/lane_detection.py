@@ -7,8 +7,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-# Base directory for the project
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Get the directory of the current script
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS_DIR = os.path.join(SCRIPT_DIR, '..', 'assets')
 
 
 # Functions ------------------------------------------------------------------------------------------------------------
@@ -105,9 +106,9 @@ def display_lines(image, lines):
 
 # Reading Images
 # (Original)
-org_img = cv2.imread(os.path.join(BASE_DIR, "samples/Lane1.png"))
+org_img = cv2.imread(os.path.join(ASSETS_DIR, "Lane1.png"))
 # (Grayscale) 0 in 2nd parameter makes it black and white
-lane_img = cv2.imread(os.path.join(BASE_DIR, "samples/Lane1.png"), 0)
+lane_img = cv2.imread(os.path.join(ASSETS_DIR, "Lane1.png"), 0)
 # Another way to convert to grayscale
 # cv2.cvtColor(lane_img,cv2.COLOR_RGB2GRAY)
 
@@ -150,7 +151,7 @@ cv2.imshow("Final Image", combo_image)
 cv2.waitKey(0)
 
 # # For lane detection in Videos
-# vid = cv2.VideoCapture(os.path.join(BASE_DIR, "samples/test.mp4"))
+# vid = cv2.VideoCapture("test.mp4")
 # while (vid.isOpened()):
 #     try:
 #         bool_value, frame = vid.read()
