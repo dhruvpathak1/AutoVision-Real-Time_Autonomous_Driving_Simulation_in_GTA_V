@@ -12,6 +12,10 @@ import numpy as np
 import time
 from PIL import ImageGrab
 import matplotlib.pyplot as plt
+import os
+
+# Base directory for the project
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Functions ------------------------------------------------------------------------------------------------------------
@@ -109,10 +113,10 @@ def display_lines(image, lines):
 # ----------------------------------------------------------------------------------------------------------------------
 # Object Detection
 
-net = cv2.dnn.readNet('yolov3.weights', 'yolov3.cfg')
+net = cv2.dnn.readNet(os.path.join(BASE_DIR, 'models/yolov3.weights'), os.path.join(BASE_DIR, 'models/yolov3.cfg'))
 
 classes = []
-with open('coco.names', 'r') as name_file:
+with open(os.path.join(BASE_DIR, 'models/coco.names'), 'r') as name_file:
     classes = name_file.read().splitlines()
 
 last_time = time.time()
