@@ -1,51 +1,90 @@
-# Image Processing Algorithms For Self Driving Cars In GTA V
+# Image Processing for Self-Driving in GTA V
 
-## We’re Building an Open Source Self-Driving Car
-The aim of the project was to implement image processing algorithms used in self driving cars and to demonstrate how an automated car sees its environment and how it detects the surrounding obstacles and objects.
+This project implements computer vision algorithms to enable basic self-driving capabilities within the GTA V environment. It utilizes real-time image processing to detect lanes and surrounding objects, providing a foundation for automated navigation and obstacle avoidance.
 
-In this project we scan the whole frame once and detect lanes and other surrounding objects like car, person, traffic lights, etc. It also shows a heads-up “Warning” if the car is too close to any other object. 
+## Project Overview
 
-We are performing You Only Look Once Algorithm and Hough Transform Algorithm for Object and Lane Detection Respectively. We have performed these algorithms in a game called GTA V, which is the closest real-life experience.
+The core objective is to demonstrate how an automated vehicle perceives its environment. By scanning video frames in real-time, the application identifies driving lanes and classifies objects such as cars, pedestrians, and traffic lights. It also includes a proximity warning system to alert when obstacles are too close.
 
-## A detailed explanation of Self Driving Cars and this project can be found at :
-#### - https://dhruvpathak.netlify.app/blogs/detection1
+## Features
 
-#### - https://dhruvpathak.netlify.app/blogs/detection2
+- **Real-time Lane Detection:** Uses the Hough Transform algorithm to identify and highlight road lanes.
+- **Object Detection:** Implements the YOLOv3 (You Only Look Once) algorithm to detect and classify multiple objects in the frame.
+- **Proximity Warning:** Triggers a "Warning !!!" message on-screen when a detected vehicle (car or truck) is dangerously close.
+- **GTA V Integration:** Designed to capture and process gameplay from GTA V, providing a realistic simulation environment.
 
-## Installation Check List
-1. Download the following libraries in your Python Interpreter:
+## Architecture & Algorithms
 
-    - [ ] OpenCV
-    
-    - [ ] Numpy
-    
-    - [ ] Pyplot from Matplot Lib
-    
-    - [ ] Time
-    
-    - [ ] ImageGrab from PIL
-    
-2. Now download the attached 'class.names'.
+### 1. Lane Detection (Hough Transform)
+- **Canny Edge Detection:** Identifies sharp changes in intensity to find potential edges.
+- **Gaussian Blur:** Reduces noise and smoothens the image before edge detection.
+- **Region of Interest (ROI):** Focuses processing on the area of the frame where lanes are most likely to appear.
+- **Hough Line Transform:** Extracts straight lines from the edge-detected image to represent lane boundaries.
 
-3. Go to this link below and download '.cfg' and '.weights' file for YOLOv3-320
-   (https://pjreddie.com/darknet/yolo/)
-   
-Make sure everthing is in the same folder.
-   
-## Arrangement For Running The Code
-1. If you have a GTA V Game then :
+### 2. Object Detection (YOLOv3)
+- **Deep Learning Model:** Utilizes a pre-trained YOLOv3 network for efficient, real-time object detection.
+- **Bounding Boxes:** Draws rectangles around detected objects with classification labels and confidence scores.
+- **Non-Maximum Suppression (NMS):** Filters redundant overlapping boxes to ensure each object is detected only once.
 
-    a.) Lower your game resolution in the settings to 800x600
-    
-    b.) Lower all your graphics to setting High like Shadow, Reflection, etc.
-    
-    c.) Now drag the window to the top left corner of your screen.
-    
-2. If you do not have the game then download our video and :
+## Project Structure
 
-    a.) Resize the window to almost 20-25% of your screen size.
-    
-    b.) And now drag it to the top left corner of your screen.
-    
-## Now You Are Ready To Run !!!
-Run the code and adjust the output screen in such a way that it does not overlap the game or the video.
+```text
+.
+├── assets/
+│   ├── clips/          # Sample video clips for testing
+│   └── coco.names      # COCO dataset class names for YOLO
+├── src/
+│   ├── lane_detection.py    # Independent lane detection implementation
+│   ├── object_detection.py  # Independent object detection implementation
+│   └── self_driving.py      # Integrated lane and object detection
+├── requirements.txt    # Python dependencies
+└── README.md           # Project documentation
+```
+
+## Setup & Installation
+
+### Prerequisites
+
+- Python 3.x
+- GTA V (optional, for real-time testing)
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Download YOLOv3 Weights & Config:**
+   The YOLOv3 model files are required for object detection. Download them and place them in the `assets/` directory:
+   - [yolov3.weights](https://pjreddie.com/media/files/yolov3.weights)
+   - [yolov3.cfg](https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg)
+
+## Usage
+
+### Running with Sample Clips
+If you don't have the game, you can run the detection on sample clips provided in `assets/clips/`:
+```bash
+python src/object_detection.py
+```
+
+### Running with GTA V
+1. Launch GTA V and set the resolution to **800x600**.
+2. Position the game window in the **top-left corner** of your screen.
+3. Run the integrated self-driving script:
+   ```bash
+   python src/self_driving.py
+   ```
+
+## Authors
+- **Dhruv Pathak**
+- **Vrushit Patel**
+
+## License
+This project is open-source and intended for educational purposes.
